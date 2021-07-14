@@ -1,0 +1,56 @@
+<table class="table table-sm table-datepicker" *ngIf="currentDisplayDate && currentDate">
+    <thead>
+        <tr>
+            <th (click)="displayAction('prev')" [ngClass]="{disabled: !validDisplayAction('prev')}">
+                <i class="fa fa-chevron-left"></i>
+            </th>
+            <th (click)="changeMode(displayMode === 'days' ? 'months' : 'years')"
+                [attr.colspan]="displayMode == 'days' ? 5 : 2"
+                [ngSwitch]="displayMode">
+                <span *ngSwitchCase="'days'">{{currentDisplayDate.format('F Y')}}</span>
+                <span *ngSwitchCase="'months'">{{currentDisplayDate.format('Y')}}</span>
+                <span *ngSwitchCase="'years'">
+					{{yearsData[0][0]}}
+                    -
+                    {{yearsData[2][3]}}
+				</span>
+            </th>
+            <th (click)="displayAction('next')" [ngClass]="{'disabled': !validDisplayAction('next')}">
+                <i class="fa fa-chevron-right"></i>
+            </th>
+        </tr>
+        <tr [hidden]="displayMode !== 'days'">
+            <th *ngFor="let d of config.dayNames">{{d}}</th>
+        </tr>
+    </thead>
+    <tbody *ngIf="displayMode === 'days'">
+        <tr *ngFor="let row of daysData">
+            <td *ngFor="let date of row" (click)="pickDate(date, 'day')"
+                [ngClass]="{
+				'old': date.format('Y-m') < currentDisplayDate.format('Y-m'),
+				'fut': date.format('Y-m') > currentDisplayDate.format('Y-m'),
+				'active': date.format('Ymd') == currentDate.format('Ymd'),
+				'disabled': !isEnabledDate(date, 'day')}">
+                {{date.format('j')}}
+            </td>
+        </tr>
+    </tbody>
+    <tbody *ngIf="displayMode === 'months'">
+        <tr *ngFor="let row of config.monthNames" class="months">
+            <td *ngFor="let month of row"
+                (click)="pickDate(currentDisplayDate.format('Y-' + month.number), 'month')"
+                [ngClass]="{active: currentDisplayDate.format('Y' + month.number) == currentDate.format('Yn'),
+				disabled: !isEnabledDate(currentDisplayDate.format('Y-' + month.number), 'month')}">
+                {{month.name}}
+            </td>
+        </tr>
+    </tbody>
+    <tbody *ngIf="displayMode === 'years'">
+        <tr *ngFor="let row of yearsData" class="years">
+            <td *ngFor="let y of row" (click)="pickDate(y, 'year')"
+                [ngClass]="{active: y == currentDate.getFullYear(), disabled: !isEnabledDate(y + '', 'year')}">
+                {{y}}
+            </td>
+        </tr>
+    </tbody>
+</table>

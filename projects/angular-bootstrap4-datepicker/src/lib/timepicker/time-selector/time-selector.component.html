@@ -1,0 +1,56 @@
+<!--
+  ~ Angular DatePicker & TimePicker plugin
+  ~ Copyright (c) 2016-2021 Rodziu <mateusz.rohde@gmail.com>
+  ~ License: MIT
+  -->
+<table class="table table-sm table-timepicker" [ngSwitch]="mode">
+    <tbody *ngSwitchCase="'picker'">
+        <tr>
+            <td *ngIf="pickHours">
+                <a (click)="change('hours', true)"><i class="fa fa-chevron-up"></i></a>
+            </td>
+            <td *ngIf="pickMinutes">
+                <a (click)="change('minutes', true)"><i class="fa fa-chevron-up"></i></a>
+            </td>
+            <td *ngIf="pickSeconds">
+                <a (click)="change('seconds', true)"><i class="fa fa-chevron-up"></i></a>
+            </td>
+        </tr>
+        <tr class="timepicker-values">
+            <td *ngIf="pickHours">
+                <a (click)="setMode('hours')">{{hours | datePad}}</a>
+            </td>
+            <td *ngIf="pickMinutes">
+                <a (click)="setMode('minutes')">{{minutes | datePad}}</a>
+            </td>
+            <td *ngIf="pickSeconds">
+                <a (click)="setMode('seconds')">{{seconds | datePad}}</a>
+            </td>
+        </tr>
+        <tr>
+            <td *ngIf="pickHours">
+                <a (click)="change('hours')"><i class="fa fa-chevron-down"></i></a>
+            </td>
+            <td *ngIf="pickMinutes">
+                <a (click)="change('minutes')"><i class="fa fa-chevron-down"></i></a>
+            </td>
+            <td *ngIf="pickSeconds">
+                <a (click)="change('seconds')"><i class="fa fa-chevron-down"></i></a>
+            </td>
+        </tr>
+    </tbody>
+    <tbody *ngSwitchCase="'hours'">
+        <tr *ngFor="let h of config.hours" class="hours">
+            <td *ngFor="let hh of h">
+                <a (click)="pick('hours', hh.hour)">{{hh.hour}}</a>
+            </td>
+        </tr>
+    </tbody>
+    <tbody *ngSwitchDefault>
+        <tr *ngFor="let m of config.minutes" class="hours">
+            <td *ngFor="let mm of m">
+                <a (click)="pick(mode, mm.minute)">{{mm.minute}}</a>
+            </td>
+        </tr>
+    </tbody>
+</table>

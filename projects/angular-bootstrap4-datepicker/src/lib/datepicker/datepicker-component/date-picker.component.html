@@ -1,0 +1,23 @@
+<div class="dropdown"
+     [ngClass]="{
+	 'input-group': showIcon, 'input-group-sm': size === 'sm', 'input-group-lg': size === 'lg',
+	 'show': isOpen}">
+    <input type="text" class="form-control" [formControl]="inputControl" datepicker-input
+           [attr.placeholder]="placeholder"
+           (click)="isOpen = true"/>
+    <ul class="dropdown-menu dropdown-menu-right angular-datepicker" (click)="$event.stopPropagation()"
+        [ngClass]="{'show': isOpen}">
+        <li *ngIf="isOpen">
+            <datepicker-calendar [formControl]="calendarControl" [minDate]="_minDate" [maxDate]="_maxDate"
+                                 [modelFormat]="modelFormat" [disabledDates]="disabledDates"
+                                 [monthPicker]="monthPicker">
+            </datepicker-calendar>
+        </li>
+    </ul>
+    <span class="input-group-append" [hidden]="!showIcon">
+		<button type="button" class="btn btn-outline-secondary" [disabled]="isDisabled"
+                (click)="isOpen = true">
+			<i class="fa fa-calendar"></i>
+		</button>
+	</span>
+</div>
