@@ -87,10 +87,10 @@ export class DatePickerComponent extends AbstractEnabledDates implements Control
         }
         // from calendar
         this.subscriptions.push(this.calendarControl.valueChanges.subscribe((value: string): void => {
-            updateModel(value);
             this.inputControl.setValue(
                 this.convertDate(value, this.modelFormat, this.format), {emitEvent: false}
             );
+            updateModel(value);
             if (this.hideOnPick) {
                 this.isOpen = false;
             }
@@ -98,8 +98,8 @@ export class DatePickerComponent extends AbstractEnabledDates implements Control
         // from input
         this.subscriptions.push(this.inputControl.valueChanges.subscribe((value: string): void => {
             const formatted = this.convertDate(value, this.format, this.modelFormat, true);
-            updateModel(formatted);
             this.calendarControl.setValue(formatted, {emitEvent: false});
+            updateModel(formatted);
         }));
     }
 
