@@ -94,8 +94,8 @@ export class TimePickerComponent implements ControlValueAccessor, OnDestroy, Val
     }
 
     writeValue(obj: unknown): void {
-        this.selectorControl.setValue(obj);
-        this.inputControl.setValue(obj);
+        this.selectorControl.setValue(obj, {emitEvent: false});
+        this.inputControl.setValue(obj, {emitEvent: false});
     }
 
     registerOnChange(fn: (value: unknown) => void): void {

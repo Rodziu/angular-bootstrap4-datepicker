@@ -104,8 +104,8 @@ export class DatePickerComponent extends AbstractEnabledDates implements Control
     }
 
     writeValue(obj: unknown): void {
-        this.calendarControl.setValue(obj);
-        this.inputControl.setValue(this.convertDate(obj, this.modelFormat, this.format));
+        this.calendarControl.setValue(obj, {emitEvent: false});
+        this.inputControl.setValue(this.convertDate(obj, this.modelFormat, this.format), {emitEvent: false});
     }
 
     registerOnChange(fn: (value: unknown) => void): void {
