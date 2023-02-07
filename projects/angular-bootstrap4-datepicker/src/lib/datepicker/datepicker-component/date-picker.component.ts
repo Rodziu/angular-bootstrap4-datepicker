@@ -74,7 +74,6 @@ export class DatePickerComponent extends AbstractEnabledDates implements Control
         super();
         this.format = this.config.format;
         this.modelFormat = this.config.modelFormat;
-        console.log('cons', this.config);
         this.inputFormatter = this.config.inputFormatter;
         this.showIcon = this.config.showIcon;
         this.hideOnPick = this.config.hideOnPick;
@@ -100,7 +99,6 @@ export class DatePickerComponent extends AbstractEnabledDates implements Control
         }));
         // from input
         this.subscriptions.push(this.inputControl.valueChanges.subscribe((value: string): void => {
-            console.log(this.inputFormatter);
             if (typeof this.inputFormatter === 'function') {
                 value = this.inputFormatter(value);
             }
