@@ -19,7 +19,8 @@ export interface IDatePickerOptions {
     dayNames: string[],
     monthNames: IMonthName[][],
     format: string,
-    modelFormat: string
+    modelFormat: string,
+    inputFormatter?: (input: string) => string
     /**
      * Call this whenever you change default locale in DateExtended
      */
@@ -36,6 +37,7 @@ export class DatePickerConfigService implements IDatePickerOptions {
     hideOnPick = false;
     dayNames: string[] = [];
     monthNames: IMonthName[][] = [];
+    inputFormatter?: (input: string) => string;
     format = 'Y-m-d';
     modelFormat = 'Y-m-d';
 
