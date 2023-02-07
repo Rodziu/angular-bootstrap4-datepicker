@@ -17,17 +17,7 @@ import {SectionDirective} from './section.directive';
 })
 export class AppComponent {
     nav: SectionDirective[] = [];
-    inputFormatter = (value: string): string => {
-        return value
-            .split('.').map((part) => {
-                if (part.length < 2 && parseInt(part) < 10) {
-                    return '0' + part;
-                }
 
-                return part;
-            })
-            .join('.');
-    };
     isDisabled = false;
     date = (new DateExtended()).format('Y-m-d');
     minDateControl = new FormControl((new DateExtended()).format('Y-m-d'));

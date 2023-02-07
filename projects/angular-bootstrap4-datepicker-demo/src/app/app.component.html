@@ -37,7 +37,7 @@
                             <label>
                                 <a href="javascript:" (click)="isDisabled=!isDisabled">Trigger 'disabled'</a>
                             </label>
-                            <datepicker [(ngModel)]="date" [disabled]="isDisabled" format="d.m.Y" [inputFormatter]="inputFormatter"></datepicker>
+                            <datepicker [(ngModel)]="date" [disabled]="isDisabled"></datepicker>
                         </div>
                         <code-example class="col-sm-8">&lt;datepicker [(ngModel)]="date" [disabled]="isDisabled"&gt;&lt;/datepicker&gt;</code-example>
                     </div>
