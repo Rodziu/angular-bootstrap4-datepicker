@@ -143,7 +143,13 @@ export class DatePickerComponent extends AbstractEnabledDates implements Control
             return null;
         }
 
-        const date = this.unknownToDate(this.inputControl.value, this.format);
+        let value = this.inputControl.value;
+
+        if (typeof this.inputFormatter === 'function') {
+            value = this.inputFormatter(value);
+        }
+
+        const date = this.unknownToDate(value, this.format);
 
         return date instanceof DateExtended && date.isValid() && this.isEnabledDate(date, 'day') ? null : {
             date: this.inputControl.value
