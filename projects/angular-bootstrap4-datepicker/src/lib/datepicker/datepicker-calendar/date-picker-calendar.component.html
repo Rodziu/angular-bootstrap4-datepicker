@@ -24,12 +24,16 @@
         </tr>
     </thead>
     <tbody *ngIf="displayMode === 'days'">
-        <tr *ngFor="let row of daysData">
+        <tr *ngFor="let row of daysData"
+            [ngClass]="{
+                'week-picker': weekPicker,
+                'active': weekPicker && row[0].format('Ymd') == currentDate.format('Ymd')
+            }">
             <td *ngFor="let date of row" (click)="pickDate(date, 'day')"
                 [ngClass]="{
 				'old': date.format('Y-m') < currentDisplayDate.format('Y-m'),
 				'fut': date.format('Y-m') > currentDisplayDate.format('Y-m'),
-				'active': date.format('Ymd') == currentDate.format('Ymd'),
+				'active': !weekPicker && date.format('Ymd') == currentDate.format('Ymd'),
 				'disabled': !isEnabledDate(date, 'day')}">
                 {{date.format('j')}}
             </td>

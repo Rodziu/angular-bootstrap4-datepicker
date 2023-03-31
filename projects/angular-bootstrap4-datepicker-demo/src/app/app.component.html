@@ -132,6 +132,16 @@
                         Function should return true for available dates, and false for disabled dates.
                     </p>
                 </section>
+                <section id="week-picker">
+                    <h2 class="page-header">Week picker</h2>
+                    <div class="row">
+                        <div class="form-group col-sm-4">
+                            <label>&nbsp;</label>
+                            <datepicker [(ngModel)]="week" [weekPicker]="true"></datepicker>
+                        </div>
+                        <code-example class="col-sm-8">&lt;datepicker [(ngModel)]="week" [weekPicker]="true"&gt;&lt;/datepicker&gt;</code-example>
+                    </div>
+                </section>
                 <section id="month-picker">
                     <h2 class="page-header">Month picker</h2>
                     <div class="row">
@@ -140,6 +150,18 @@
                             <datepicker [(ngModel)]="month" [monthPicker]="true"></datepicker>
                         </div>
                         <code-example class="col-sm-8">&lt;datepicker [(ngModel)]="month" [monthPicker]="true"&gt;&lt;/datepicker&gt;</code-example>
+                    </div>
+                </section>
+                <section id="display-formatter">
+                    <h2 class="page-header">Custom display value</h2>
+                    <div class="row">
+                        <div class="form-group col-sm-4">
+                            <label>&nbsp;</label>
+                            <datepicker [(ngModel)]="displayFormatterValue" [displayFormatter]="displayFormatter"></datepicker>
+                        </div>
+                        <code-example class="col-sm-8">&lt;datepicker [(ngModel)]="displayFormatterValue"
+                            [displayFormatter]="displayFormatter"&gt;&lt;/datepicker&gt;
+                        </code-example>
                     </div>
                 </section>
                 <section id="format">
@@ -305,7 +327,8 @@
                             <label>Invalid format</label>
                             <timepicker [(ngModel)]="invalidTime"></timepicker>
                         </div>
-                        <code-example class="col-sm-8">&lt;timepicker [(ngModel)]="invalidTime"&gt;&lt;/timepicker&gt;</code-example>
+                        <code-example class="col-sm-8">&lt;timepicker [(ngModel)]="invalidTime"&gt;&lt;/timepicker&gt;
+                        </code-example>
                     </div>
                 </section>
                 <section id="timepicker-placeholder">
@@ -315,7 +338,9 @@
                             <label>&nbsp;</label>
                             <timepicker [(ngModel)]="timePlaceholder" placeholder="Placeholder text"></timepicker>
                         </div>
-                        <code-example class="col-sm-8">&lt;timepicker [(ngModel)]="timePlaceholder" placeholder="Placeholder text"&gt;&lt;/timepicker&gt;</code-example>
+                        <code-example class="col-sm-8">&lt;timepicker [(ngModel)]="timePlaceholder"
+                            placeholder="Placeholder text"&gt;&lt;/timepicker&gt;
+                        </code-example>
                     </div>
                 </section>
                 <section id="timepicker-input-group">
@@ -354,7 +379,8 @@
                             <label>&nbsp;</label>
                             <time-selector [(ngModel)]="time"></time-selector>
                         </div>
-                        <code-example class="col-sm-8">&lt;time-selector [(ngModel)]="time"&gt;&lt;/time-selector&gt;</code-example>
+                        <code-example class="col-sm-8">&lt;time-selector [(ngModel)]="time"&gt;&lt;/time-selector&gt;
+                        </code-example>
                     </div>
                 </section>
             </section>

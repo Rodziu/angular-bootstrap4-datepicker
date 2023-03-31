@@ -36,9 +36,11 @@ export class DatePickerComponent extends AbstractEnabledDates implements Control
     @Input() format: string;
     @Input() modelFormat: string;
     @Input() inputFormatter?: (input: string) => string;
+    @Input() displayFormatter?: (date: DateExtended) => string;
     @Input() placeholder?: string;
     @Input() showIcon: boolean;
     @Input() hideOnPick: boolean;
+    @Input() weekPicker = false;
     @Input() monthPicker = false;
     @Input() size?: 'sm' | 'lg';
     @Input() disabledDates?: (date: DateExtended, mode: 'year' | 'month' | 'day') => boolean;
@@ -55,6 +57,7 @@ export class DatePickerComponent extends AbstractEnabledDates implements Control
     isDisabled = false;
     calendarControl = new FormControl();
     inputControl = new FormControl();
+    displayValue = '';
 
     private _onChange?: (value: unknown) => void;
     private _onTouched?: () => void;
@@ -96,6 +99,12 @@ export class DatePickerComponent extends AbstractEnabledDates implements Control
             if (this.hideOnPick) {
                 this.isOpen = false;
             }
+            if (this.displayFormatter) {
+                const date = this.unknownToDate(value, this.modelFormat);
+                if (date instanceof DateExtended && date.isValid()) {
+                    this.displayValue = this.displayFormatter(date);
+                }
+            }
         }));
         // from input
         this.subscriptions.push(this.inputControl.valueChanges.subscribe((value: string): void => {
@@ -112,6 +121,13 @@ export class DatePickerComponent extends AbstractEnabledDates implements Control
     writeValue(obj: unknown): void {
         this.calendarControl.setValue(obj, {emitEvent: false});
         this.inputControl.setValue(this.convertDate(obj, this.modelFormat, this.format), {emitEvent: false});
+
+        if (this.displayFormatter) {
+            const date = this.unknownToDate(obj, this.modelFormat);
+            if (date instanceof DateExtended) {
+                this.displayValue = this.displayFormatter(date);
+            }
+        }
     }
 
     registerOnChange(fn: (value: unknown) => void): void {
@@ -150,8 +166,13 @@ export class DatePickerComponent extends AbstractEnabledDates implements Control
         }
 
         const date = this.unknownToDate(value, this.format);
+        let isValid = date instanceof DateExtended && date.isValid() && this.isEnabledDate(date, 'day');
 
-        return date instanceof DateExtended && date.isValid() && this.isEnabledDate(date, 'day') ? null : {
+        if (isValid && this.weekPicker) {
+            isValid = date?.format('N') === '1';
+        }
+
+        return isValid ? null : {
             date: this.inputControl.value
         };
     }

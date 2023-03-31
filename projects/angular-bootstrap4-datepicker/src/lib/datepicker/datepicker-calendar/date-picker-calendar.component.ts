@@ -22,6 +22,7 @@ import {AbstractEnabledDates} from '../abstract-enabled-dates';
 })
 export class DatePickerCalendarComponent extends AbstractEnabledDates implements ControlValueAccessor, OnInit {
     @Input() modelFormat: string;
+    @Input() weekPicker = false;
     @Input() monthPicker = false;
     @Input() disabledDates?: (date: DateExtended, mode: 'year' | 'month' | 'day') => boolean;
 
@@ -202,6 +203,13 @@ export class DatePickerCalendarComponent extends AbstractEnabledDates implements
 
         switch (mode) {
             case 'day':
+                if (this.weekPicker) {
+                    const weekDay = parseInt(date.format('N'));
+                    if (weekDay > 1) {
+                        date = date.clone().sub(weekDay - 1, 'day');
+                    }
+                }
+
                 if (this._onChange) {
                     this._onChange(date.format(this.modelFormat));
                 }

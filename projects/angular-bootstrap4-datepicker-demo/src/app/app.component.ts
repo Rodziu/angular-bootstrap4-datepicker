@@ -31,7 +31,16 @@ export class AppComponent {
         return true;
     }
 
+    week = '';
     month = '';
+    displayFormatterValue = '';
+    displayFormatter = (date: DateExtended): string => {
+        if (!date.isValid()) {
+            return '-';
+        }
+
+        return `Chosen date is: ${date.format('Y-m-d')}`;
+    };
     dateFormat = (new DateExtended()).add(1).format('Y-m-d');
     dateFormatModel = (new DateExtended()).add(1).format('j F Y');
     placeholder = '';
