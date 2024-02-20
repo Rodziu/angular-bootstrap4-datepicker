@@ -8,7 +8,7 @@ import {Injectable} from '@angular/core';
 
 export interface IMonthName {
     name: string,
-    number: number
+    number: string
 }
 
 export interface IDatePickerOptions {
@@ -58,7 +58,7 @@ export class DatePickerConfigService implements IDatePickerOptions {
                 const number = (i * 4) + j + 1;
                 row.push({
                     name: DateExtended.getMonthShortNames()[number - 1],
-                    number: number
+                    number: number < 10 ? '0' + number : number.toString()
                 });
             }
             this.monthNames.push(row);
